@@ -1,0 +1,14 @@
+# IDE
+*.sublime-project
+*.sublime-workspace
+/.idea/
+*.komodoproject
+.vscode
+.phpunit.result.cache
+.php-cs-fixer.cache
+composer.lock
+
+build
+generated
+vendor
+node_modules
