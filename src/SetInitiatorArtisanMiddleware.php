@@ -2,7 +2,6 @@
 
 namespace Ensi\LaravelInitiatorPropagation;
 
-
 use Ensi\InitiatorPropagation\InitiatorDTO;
 use Ensi\InitiatorPropagation\InitiatorHolder;
 use Illuminate\Container\Container;
