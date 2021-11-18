@@ -25,6 +25,9 @@ var_dump($holder->getInitiator());
 $holder->setInitiator(new InitiatorDTO(...));
 ```
 
+You must always resolve InitiatorHolder from the service container instead of `InitiatorHolder::getInstance`.
+This is made forLaravel Octane compatibility.
+
 ### HTTP Requests
 
 #### Setting initiator
@@ -47,13 +50,13 @@ Add `Ensi\LaravelInitiatorPropagation\ParseInitiatorHeaderMiddleware` to `app/Ht
 This middleware parses `X-Initiator` HTTP header, deserializes it into `InitiatorDTO` object and places it to the `InitiatorHolder` singleton.
 
 #### Propagating initiator to outcomming HTTP request
-The package provides a `Ensi\InitiatorPropagation\PropagateInitiatorGuzzleMiddleware` Guzzle Middleware that converts ` resolve(InitiatorHolder::class)->getInitiator()` back to `X-Inititator` header and sets this header for all outcomming guzzle request.
+The package provides a `Ensi\LaravelInitiatorPropagation\PropagateInitiatorLaravelGuzzleMiddleware` Guzzle Middleware that converts ` resolve(InitiatorHolder::class)->getInitiator()` back to `X-Inititator` header and sets this header for all outcomming guzzle request.
 
 You can add it to your guzzle stack like this:
 
 ```php
 $handlerStack = new HandlerStack(Utils::chooseHandler());
-$handlerStack->push(new PropagateInitiatorGuzzleMiddleware());
+$handlerStack->push(new PropagateInitiatorLaravelGuzzleMiddleware());
 ```
 
 ### CLI
