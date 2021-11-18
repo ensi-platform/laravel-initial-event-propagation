@@ -106,7 +106,7 @@ If you use [spatie/laravel-queueable-action](https://github.com/spatie/laravel-q
 Just publish `laravel-queueable-action` config and set the special Job class there:
 
 ```php 
-'job_class' => \Ensi\InitiatorPropagation\ActionJob::class,
+'job_class' => \Ensi\LaravelInitiatorPropagation\ActionJob::class,
 ```
 
 ## Contributing
