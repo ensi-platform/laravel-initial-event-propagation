@@ -39,7 +39,7 @@ It creates an `InitialEventDTO` and places it to the `InitialEventHolder` single
 - `app` is set according to config options.
 - `userType` is set from the package config. `userType` is empty for a not authenticated user.
 - `correlationId` and `timestamp` are set from request headers according to config options or generated from scratch.
-- `realUserId` and `realUserType` are left empty strings.
+- `realUserId`, `realUserType` and `misc` are left empty strings.
 
 Be sure to add the midlleware AFTER Laravel middleware that sets authenticated user. 
 In practice it likely means that you have to place the middleare at the very bottom of `middlewareGroups` in `app/Http/Kernel`
