@@ -1,24 +1,24 @@
 <?php
 
-namespace Ensi\LaravelInitiatorPropagation;
+namespace Ensi\LaravelInitialEventPropagation;
 
 use Closure;
-use Ensi\InitiatorPropagation\Config;
-use Ensi\InitiatorPropagation\InitiatorDTO;
-use Ensi\InitiatorPropagation\InitiatorHolder;
+use Ensi\InitialEventPropagation\Config;
+use Ensi\InitialEventPropagation\InitialEventDTO;
+use Ensi\InitialEventPropagation\InitialEventHolder;
 use Illuminate\Http\Request;
 
-class ParseInitiatorHeaderMiddleware
+class ParseInitialEventHeaderMiddleware
 {
-    public function __construct(protected InitiatorHolder $initiatorHolder)
+    public function __construct(protected InitialEventHolder $initialEventHolder)
     {
     }
 
     public function handle(Request $request, Closure $next): mixed
     {
         if ($request->hasHeader(Config::REQUEST_HEADER)) {
-            $initiator = InitiatorDTO::fromSerializedString($request->header(Config::REQUEST_HEADER));
-            $this->initiatorHolder->setInitiator($initiator);
+            $initialEvent = InitialEventDTO::fromSerializedString($request->header(Config::REQUEST_HEADER));
+            $this->initialEventHolder->setInitialEvent($initialEvent);
         }
 
         return $next($request);

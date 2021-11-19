@@ -1,89 +1,89 @@
 # Laravel Inititator Propagation
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ensi/laravel-initiator-propagation.svg?style=flat-square)](https://packagist.org/packages/ensi/laravel-initiator-propagation)
-[![Tests](https://github.com/ensi-platform/laravel-initiator-propagation/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/ensi-platform/laravel-initiator-propagation/actions/workflows/run-tests.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/ensi/laravel-initiator-propagation.svg?style=flat-square)](https://packagist.org/packages/ensi/laravel-initiator-propagation)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ensi/laravel-initial-event-propagation.svg?style=flat-square)](https://packagist.org/packages/ensi/laravel-initial-event-propagation)
+[![Tests](https://github.com/ensi-platform/laravel-initial-event-propagation/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/ensi-platform/laravel-initial-event-propagation/actions/workflows/run-tests.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/ensi/laravel-initial-event-propagation.svg?style=flat-square)](https://packagist.org/packages/ensi/laravel-initial-event-propagation)
 
-Provides a bunch of ready-to use middleware to integrate [ensi/initiator-propagation](https://github.com/ensi-platform/php-initiator-propagation/) in Laravel application.
+Provides a bunch of ready-to use middleware to integrate [ensi/initial-event-propagation](https://github.com/ensi-platform/php-initial-event-propagation/) in Laravel application.
 You are free to replace any of them with your own implementations.
 
 ## Installation
 
 You can install the package via composer:
 
-`composer require ensi/laravel-initiator-propagation`
+`composer require ensi/laravel-initial-event-propagation`
 
 Publish config file like this:
 
-`php artisan vendor:publish --provider="Ensi\LaravelInitiatorPropagation\LaravelInitiatorPropagationServiceProvider"`
+`php artisan vendor:publish --provider="Ensi\LaravelInitialEventPropagation\LaravelInitialEventPropagationServiceProvider"`
 
 ## Basic Usage
 
 ```php
-$holder = resolve(InitiatorHolder::class);
-var_dump($holder->getInitiator());
-$holder->setInitiator(new InitiatorDTO(...));
+$holder = resolve(InitialEventHolder::class);
+var_dump($holder->getInitialEvent());
+$holder->setInitialEvent(new InitialEventDTO(...));
 ```
 
-You must always resolve InitiatorHolder from the service container instead of `InitiatorHolder::getInstance`.
+You must always resolve InitialEventHolder from the service container instead of `InitialEventHolder::getInstance`.
 This is made forLaravel Octane compatibility.
 
 ### HTTP Requests
 
-#### Setting initiator
+#### Setting initial event
 
-You typically create a new initiator when you receive a HTTP request coming from a client you do not own. E.g in an API Gateway.
-There is a built-in `Ensi\LaravelInitiatorPropagation\SetInitiatorHttpMiddleware` for that.
-It creates an `InitiatorDTO` and places it to the `InitiatorHolder` singleton.
+You typically create a new initial event when you receive a HTTP request coming from a client you do not own. E.g in an API Gateway.
+There is a built-in `Ensi\LaravelInitialEventPropagation\SetInitialEventHttpMiddleware` for that.
+It creates an `InitialEventDTO` and places it to the `InitialEventHolder` singleton.
 - `userId` and `entrypoint` are set from request.
 - `app` is set according to config options.
 - `userType` is set from the package config. `userType` is empty for a not authenticated user.
-- `correlationId` and `startedAt` are set from request headers according to config options or generated from scratch.
+- `correlationId` and `timestamp` are set from request headers according to config options or generated from scratch.
 - `realUserId` and `realUserType` are left empty strings.
 
 Be sure to add the midlleware AFTER Laravel middleware that sets authenticated user. 
 In practice it likely means that you have to place the middleare at the very bottom of `middlewareGroups` in `app/Http/Kernel`
 
-#### Parsing incoming initiator
+#### Parsing incoming initial event
 
-Add `Ensi\LaravelInitiatorPropagation\ParseInitiatorHeaderMiddleware` to `app/Http/Kernel` middleware property.
-This middleware parses `X-Initiator` HTTP header, deserializes it into `InitiatorDTO` object and places it to the `InitiatorHolder` singleton.
+Add `Ensi\LaravelInitialEventPropagation\ParseInitialEventHeaderMiddleware` to `app/Http/Kernel` middleware property.
+This middleware parses `X-InitialEvent` HTTP header, deserializes it into `InitialEventDTO` object and places it to the `InitialEventHolder` singleton.
 
-#### Propagating initiator to outcomming HTTP request
-The package provides a `Ensi\LaravelInitiatorPropagation\PropagateInitiatorLaravelGuzzleMiddleware` Guzzle Middleware that converts ` resolve(InitiatorHolder::class)->getInitiator()` back to `X-Inititator` header and sets this header for all outcomming guzzle request.
+#### Propagating initial event to outcomming HTTP request
+The package provides a `Ensi\LaravelInitialEventPropagation\PropagateInitialEventLaravelGuzzleMiddleware` Guzzle Middleware that converts ` resolve(InitialEventHolder::class)->getInitialEvent()` back to `X-Inititator` header and sets this header for all outcomming guzzle request.
 
 You can add it to your guzzle stack like this:
 
 ```php
 $handlerStack = new HandlerStack(Utils::chooseHandler());
-$handlerStack->push(new PropagateInitiatorLaravelGuzzleMiddleware());
+$handlerStack->push(new PropagateInitialEventLaravelGuzzleMiddleware());
 ```
 
 ### CLI
 
 #### Artisan Commands
 
-There is a custom artisan `Ensi\LaravelInitiatorPropagation\SetInitiatorArtisanMiddleware` that sets new initiator in every artisan command that you run.
+There is a custom artisan `Ensi\LaravelInitialEventPropagation\SetInitialEventArtisanMiddleware` that sets new initial event in every artisan command that you run.
 You can add it to the `app\Console\Kernel` like that:
 
 ```php
 public function bootstrap()
 {
     parent::bootstrap();
-    (new SetInitiatorArtisanMiddleware())->handle();
+    (new SetInitialEventArtisanMiddleware())->handle();
 }
 ```
-This middleware sets artisan command name (including argument, excluding options) as `$initiatorDTO->entrypoint`.
-If your custom artisan command makes guzzle HTTP requests to other apps the `PropagateInitiatorGuzzleMiddleware` uses this initiator.
+This middleware sets artisan command name (including argument, excluding options) as `$initialEventDTO->entrypoint`.
+If your custom artisan command makes guzzle HTTP requests to other apps the `PropagateInitialEventGuzzleMiddleware` uses this initial event.
 This middleware also works fine for [Laravel Task Scheduling](https://laravel.com/docs/latest/scheduling).
 
 #### Queue Jobs
 
-You typically want to persist initiator between incoming HTTP request and queued job.
+You typically want to persist initial event between incoming HTTP request and queued job.
 The package can help you here aswell. Unfortunately you need to touch a given job:
 
 ```php
-use Ensi\LaravelInitiatorPropagation\Job;
+use Ensi\LaravelInitialEventPropagation\Job;
 
 // Extend the job from package
 class TestJob extends Job implements ShouldQueue 
@@ -96,7 +96,7 @@ class TestJob extends Job implements ShouldQueue
 
     public function handle()
     {
-        // Initiator is automatically persisted to InitiatorHolder via job middleware in parent class, 
+        // InitialEvent is automatically persisted to InitialEventHolder via job middleware in parent class, 
         // You do not need to persist it manually
     }
 }
@@ -109,7 +109,7 @@ If you use [spatie/laravel-queueable-action](https://github.com/spatie/laravel-q
 Just publish `laravel-queueable-action` config and set the special Job class there:
 
 ```php 
-'job_class' => \Ensi\LaravelInitiatorPropagation\ActionJob::class,
+'job_class' => \Ensi\LaravelInitialEventPropagation\ActionJob::class,
 ```
 
 ## Contributing

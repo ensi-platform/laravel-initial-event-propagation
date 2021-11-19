@@ -1,5 +1,5 @@
 <?php
 
-use Ensi\LaravelInitiatorPropagation\Tests\TestCase;
+use Ensi\LaravelInitialEventPropagation\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

@@ -1,13 +1,13 @@
 <?php
 
-namespace Ensi\LaravelInitiatorPropagation;
+namespace Ensi\LaravelInitialEventPropagation;
 
-use Ensi\InitiatorPropagation\InitiatorHolder;
+use Ensi\InitialEventPropagation\InitialEventHolder;
 use Illuminate\Support\ServiceProvider;
 
-class LaravelInitiatorPropagationServiceProvider extends ServiceProvider
+class LaravelInitialEventPropagationServiceProvider extends ServiceProvider
 {
-    const CONFIG_FILE_NAME = 'initiator-propagation.php';
+    const CONFIG_FILE_NAME = 'initial-event-propagation.php';
 
     /**
      * @return void
@@ -16,10 +16,10 @@ class LaravelInitiatorPropagationServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/' . self::CONFIG_FILE_NAME,
-            'initiator-propagation'
+            'initial-event-propagation'
         );
 
-        $this->app->singleton(InitiatorHolder::class, fn () => new InitiatorHolder());
+        $this->app->singleton(InitialEventHolder::class, fn () => new InitialEventHolder());
     }
 
     /**

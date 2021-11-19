@@ -1,8 +1,8 @@
 <?php
 
-namespace Ensi\LaravelInitiatorPropagation\Tests;
+namespace Ensi\LaravelInitialEventPropagation\Tests;
 
-use Ensi\LaravelInitiatorPropagation\LaravelInitiatorPropagationServiceProvider;
+use Ensi\LaravelInitialEventPropagation\LaravelInitialEventPropagationServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -10,7 +10,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            LaravelInitiatorPropagationServiceProvider::class,
+            LaravelInitialEventPropagationServiceProvider::class,
         ];
     }
 

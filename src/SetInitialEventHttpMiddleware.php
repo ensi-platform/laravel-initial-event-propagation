@@ -1,31 +1,31 @@
 <?php
 
-namespace Ensi\LaravelInitiatorPropagation;
+namespace Ensi\LaravelInitialEventPropagation;
 
 use Closure;
-use Ensi\InitiatorPropagation\InitiatorDTO;
-use Ensi\InitiatorPropagation\InitiatorHolder;
+use Ensi\InitialEventPropagation\InitialEventDTO;
+use Ensi\InitialEventPropagation\InitialEventHolder;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
 
-class SetInitiatorHttpMiddleware
+class SetInitialEventHttpMiddleware
 {
     public function handle(Request $request, Closure $next): mixed
     {
         $user = $request->user();
-        $config = config('initiator-propagation', []);
-        $mc = config('initiator-propagation.set_initiator_http_middleware', []);
+        $config = config('initial-event-propagation', []);
+        $mc = config('initial-event-propagation.set_initiator_http_middleware', []);
 
-        $initiator = InitiatorDTO::fromScratch(
+        $initiator = InitialEventDTO::fromScratch(
             userId: $user ? $user->getId() : "",
-            userType: $user ? config('initiator-propagation.set_initiator_http_middleware.default_user_type', '') : "",
+            userType: $user ? config('initial-event-propagation.set_initiator_http_middleware.default_user_type', '') : "",
             app: !empty($mc['app_code_header']) ? $request->header($mc['app_code_header']) : ($config['app_code'] ?? ''),
             entrypoint: $this->extractEntrypoint($request),
             correlationId: !empty($mc['correlation_id_header']) ? $request->header($mc['correlation_id_header']) : '',
-            startedAt: !empty($mc['started_at_header']) ? $request->header($mc['started_at_header']) : ''
+            timestamp: !empty($mc['timestamp_header']) ? $request->header($mc['timestamp_header']) : ''
         );
 
-        Container::getInstance()->make(InitiatorHolder::class)->setInitiator($initiator);
+        Container::getInstance()->make(InitialEventHolder::class)->setInitialEvent($initiator);
 
         return $next($request);
     }

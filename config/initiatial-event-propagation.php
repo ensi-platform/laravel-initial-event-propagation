@@ -2,7 +2,7 @@
 
 return [
     'app_code' => '',
-    'set_initiator_http_middleware' => [
+    'set_initial_event_http_middleware' => [
         'default_user_type' => '',
 
         /**
@@ -18,9 +18,9 @@ return [
         'corelation_id_header' => '',
 
         /**
-         * Middleware parses this header to get `startedAt`
-         * If the header is not specified here or in a request, `startedAt` is generated from scratch.
+         * Middleware parses this header to get `timestamp`
+         * If the header is not specified here or in a request, `timestamp` is generated from scratch.
          */
-        'started_at_header' => '',
+        'timestamp_header' => '',
     ]
 ];

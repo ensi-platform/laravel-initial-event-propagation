@@ -1,18 +1,18 @@
 <?php
 
-namespace Ensi\LaravelInitiatorPropagation;
+namespace Ensi\LaravelInitialEventPropagation;
 
-use Ensi\InitiatorPropagation\Config;
-use Ensi\InitiatorPropagation\InitiatorHolder;
+use Ensi\InitialEventPropagation\Config;
+use Ensi\InitialEventPropagation\InitialEventHolder;
 use Illuminate\Container\Container;
 use Psr\Http\Message\RequestInterface;
 
-class PropagateInitiatorLaravelGuzzleMiddleware
+class PropagateInitialEventLaravelGuzzleMiddleware
 {
     public function __invoke(callable $handler): callable
     {
         return function (RequestInterface $request, $options) use ($handler) {
-            $inititiator = Container::getInstance()->make(InitiatorHolder::class)->getInitiator();
+            $inititiator = Container::getInstance()->make(InitialEventHolder::class)->getInitialEvent();
 
             return $handler(
                 $inititiator ? $request->withHeader(Config::REQUEST_HEADER, $inititiator->serialize()) : $request,

@@ -1,5 +1,5 @@
 {
-  "name": "ensi/laravel-initiator-propagation",
+  "name": "ensi/laravel-initial-event-propagation",
   "description": "",
   "type": "library",
   "authors": [
@@ -12,16 +12,16 @@
   "require": {
     "php": "^8.0",
     "illuminate/contracts": "^8.37",
-    "ensi/initiator-propagation": "^0.1"
+    "ensi/initial-event-propagation": "^0.2"
   },
   "autoload": {
     "psr-4": {
-      "Ensi\\LaravelInitiatorPropagation\\": "src/"
+      "Ensi\\LaravelInitialEventPropagation\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-        "Ensi\\LaravelInitiatorPropagation\\Tests\\": "tests"
+        "Ensi\\LaravelInitialEventPropagation\\Tests\\": "tests"
     }
   },
   "require-dev": {
@@ -36,7 +36,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Ensi\\LaravelInitiatorPropagation\\LaravelInitiatorPropagationServiceProvider"
+        "Ensi\\LaravelInitialEventPropagation\\LaravelInitialEventPropagationServiceProvider"
       ]
     }
   },

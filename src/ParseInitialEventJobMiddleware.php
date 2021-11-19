@@ -1,11 +1,11 @@
 <?php
 
-namespace Ensi\LaravelInitiatorPropagation;
+namespace Ensi\LaravelInitialEventPropagation;
 
-use Ensi\InitiatorPropagation\InitiatorHolder;
+use Ensi\InitialEventPropagation\InitialEventHolder;
 use Illuminate\Container\Container;
 
-class ParseInitiatorJobMiddleware
+class ParseInitialEventJobMiddleware
 {
     /**
      * Process the queued job.
@@ -16,8 +16,8 @@ class ParseInitiatorJobMiddleware
      */
     public function handle($job, $next): mixed
     {
-        if ($job?->initiator) {
-            Container::getInstance()->make(InitiatorHolder::class)->setInitiator($job->initiator);
+        if ($job?->initialEvent) {
+            Container::getInstance()->make(InitialEventHolder::class)->setInitialEvent($job->initialEvent);
         }
 
         return $next($job);

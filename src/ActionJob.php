@@ -1,24 +1,24 @@
 <?php
 
-namespace Ensi\LaravelInitiatorPropagation;
+namespace Ensi\LaravelInitialEventPropagation;
 
-use Ensi\InitiatorPropagation\InitiatorDTO;
-use Ensi\InitiatorPropagation\InitiatorHolder;
+use Ensi\InitialEventPropagation\InitialEventDTO;
+use Ensi\InitialEventPropagation\InitialEventHolder;
 use Illuminate\Container\Container;
 use Spatie\QueueableAction\ActionJob as SpatieActionJob;
 
 class ActionJob extends SpatieActionJob
 {
-    public ?InitiatorDTO $initiator = null;
+    public ?InitialEventDTO $initialEvent = null;
 
     public function __construct($action, array $parameters = [])
     {
-        $this->initiator = Container::getInstance()->make(InitiatorHolder::class)->getInitiator();
+        $this->initialEvent = Container::getInstance()->make(InitialEventHolder::class)->getInitialEvent();
         parent::__construct($action, $parameters);
     }
 
     public function middleware(): array
     {
-        return array_merge($this->middleware, [new ParseInitiatorJobMiddleware()]);
+        return array_merge($this->middleware, [new ParseInitialEventJobMiddleware()]);
     }
 }

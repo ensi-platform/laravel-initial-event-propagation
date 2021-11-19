@@ -1,18 +1,18 @@
 <?php
 
-namespace Ensi\LaravelInitiatorPropagation;
+namespace Ensi\LaravelInitialEventPropagation;
 
-use Ensi\InitiatorPropagation\InitiatorDTO;
-use Ensi\InitiatorPropagation\InitiatorHolder;
+use Ensi\InitialEventPropagation\InitialEventDTO;
+use Ensi\InitialEventPropagation\InitialEventHolder;
 use Illuminate\Container\Container;
 
 class Job
 {
-    public ?InitiatorDTO $initiator = null;
+    public ?InitialEventDTO $initialEvent = null;
 
     public function __construct()
     {
-        $this->initiator = Container::getInstance()->make(InitiatorHolder::class)->getInitiator();
+        $this->initialEvent = Container::getInstance()->make(InitialEventHolder::class)->getInitialEvent();
     }
 
     /**
@@ -22,6 +22,6 @@ class Job
      */
     public function middleware()
     {
-        return [new ParseInitiatorJobMiddleware()];
+        return [new ParseInitialEventJobMiddleware()];
     }
 }
