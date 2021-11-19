@@ -12,10 +12,10 @@ class PropagateInitialEventLaravelGuzzleMiddleware
     public function __invoke(callable $handler): callable
     {
         return function (RequestInterface $request, $options) use ($handler) {
-            $inititiator = Container::getInstance()->make(InitialEventHolder::class)->getInitialEvent();
+            $initialEvent = Container::getInstance()->make(InitialEventHolder::class)->getInitialEvent();
 
             return $handler(
-                $inititiator ? $request->withHeader(Config::REQUEST_HEADER, $inititiator->serialize()) : $request,
+                $initialEvent ? $request->withHeader(Config::REQUEST_HEADER, $initialEvent->serialize()) : $request,
                 $options
             );
         };

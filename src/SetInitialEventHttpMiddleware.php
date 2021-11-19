@@ -14,18 +14,18 @@ class SetInitialEventHttpMiddleware
     {
         $user = $request->user();
         $config = config('initial-event-propagation', []);
-        $mc = config('initial-event-propagation.set_initiator_http_middleware', []);
+        $mc = config('initial-event-propagation.set_initial_event_http_middleware', []);
 
-        $initiator = InitialEventDTO::fromScratch(
+        $initialEvent = InitialEventDTO::fromScratch(
             userId: $user ? $user->getId() : "",
-            userType: $user ? config('initial-event-propagation.set_initiator_http_middleware.default_user_type', '') : "",
+            userType: $user ? $mc['default_user_type'] : "",
             app: !empty($mc['app_code_header']) ? $request->header($mc['app_code_header']) : ($config['app_code'] ?? ''),
             entrypoint: $this->extractEntrypoint($request),
             correlationId: !empty($mc['correlation_id_header']) ? $request->header($mc['correlation_id_header']) : '',
             timestamp: !empty($mc['timestamp_header']) ? $request->header($mc['timestamp_header']) : ''
         );
 
-        Container::getInstance()->make(InitialEventHolder::class)->setInitialEvent($initiator);
+        Container::getInstance()->make(InitialEventHolder::class)->setInitialEvent($initialEvent);
 
         return $next($request);
     }

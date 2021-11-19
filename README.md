@@ -1,4 +1,4 @@
-# Laravel Inititator Propagation
+# Laravel Initial Evenet Propagation
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ensi/laravel-initial-event-propagation.svg?style=flat-square)](https://packagist.org/packages/ensi/laravel-initial-event-propagation)
 [![Tests](https://github.com/ensi-platform/laravel-initial-event-propagation/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/ensi-platform/laravel-initial-event-propagation/actions/workflows/run-tests.yml)
@@ -47,10 +47,10 @@ In practice it likely means that you have to place the middleare at the very bot
 #### Parsing incoming initial event
 
 Add `Ensi\LaravelInitialEventPropagation\ParseInitialEventHeaderMiddleware` to `app/Http/Kernel` middleware property.
-This middleware parses `X-InitialEvent` HTTP header, deserializes it into `InitialEventDTO` object and places it to the `InitialEventHolder` singleton.
+This middleware parses `X-Initial-Event` HTTP header, deserializes it into `InitialEventDTO` object and places it to the `InitialEventHolder` singleton.
 
 #### Propagating initial event to outcomming HTTP request
-The package provides a `Ensi\LaravelInitialEventPropagation\PropagateInitialEventLaravelGuzzleMiddleware` Guzzle Middleware that converts ` resolve(InitialEventHolder::class)->getInitialEvent()` back to `X-Inititator` header and sets this header for all outcomming guzzle request.
+The package provides a `Ensi\LaravelInitialEventPropagation\PropagateInitialEventLaravelGuzzleMiddleware` Guzzle Middleware that converts ` resolve(InitialEventHolder::class)->getInitialEvent()` back to `X-Initial-Event` header and sets this header for all outcomming guzzle request.
 
 You can add it to your guzzle stack like this:
 
