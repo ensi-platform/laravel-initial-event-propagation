@@ -19,7 +19,6 @@ class RdKafkaConsumerMiddleware
         $initialEvent = $this->extractInitialEventFromHeaders($message->headers);
         if ($initialEvent) {
             $this->initialEventHolder->setInitialEvent($initialEvent);
-            var_dump($initialEvent);
         }
 
         return $next($message);
