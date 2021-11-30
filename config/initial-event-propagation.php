@@ -6,6 +6,12 @@ return [
         'default_user_type' => '',
 
         /**
+         * If is set to `true` the middleware does not override the InitialEvent if it was already set for current context earlier.
+         * Defaults to `false`.
+         */
+        'preserve_existing_event' => false,
+
+        /**
          * Middleware parses this header to get `appCode`.
          * If the header is not specified here or in a request, `appCode` is taken from `app_code` config value
          */ 
