@@ -32,25 +32,25 @@ This is made forLaravel Octane compatibility.
 
 #### Setting initial event
 
-You typically create a new initial event when you receive a HTTP request coming from a client you do not own. E.g in an API Gateway.
-There is a built-in `Ensi\LaravelInitialEventPropagation\SetInitialEventHttpMiddleware` for that.
-It creates an `InitialEventDTO` and places it to the `InitialEventHolder` singleton.
+You typically create a new initial event when you receive a HTTP request coming from a client you do not own. E.g in an API Gateway.  
+There is a built-in `Ensi\LaravelInitialEventPropagation\SetInitialEventHttpMiddleware` for that.  
+It creates an `InitialEventDTO` and places it to the `InitialEventHolder` singleton.  
 - `userId` and `entrypoint` are set from request.
 - `app` is set according to config options.
 - `userType` is set from the package config. `userType` is empty for a not authenticated user.
 - `correlationId` and `timestamp` are set from request headers according to config options or generated from scratch.
 - `realUserId`, `realUserType` and `misc` are left empty strings.
 
-Be sure to add the midlleware AFTER Laravel middleware that sets authenticated user. 
+Be sure to add the midlleware AFTER Laravel middleware that sets authenticated user.   
 In practice it likely means that you have to place the middleare at the very bottom of `middlewareGroups` in `app/Http/Kernel`
 
 #### Parsing incoming initial event
 
-Add `Ensi\LaravelInitialEventPropagation\ParseInitialEventHeaderMiddleware` to `app/Http/Kernel` middleware property.
+Add `Ensi\LaravelInitialEventPropagation\ParseInitialEventHeaderMiddleware` to `app/Http/Kernel` middleware property.  
 This middleware parses `X-Initial-Event` HTTP header, deserializes it into `InitialEventDTO` object and places it to the `InitialEventHolder` singleton.
 
 #### Propagating initial event to outcomming HTTP request
-The package provides a `Ensi\LaravelInitialEventPropagation\PropagateInitialEventLaravelGuzzleMiddleware` Guzzle Middleware that converts ` resolve(InitialEventHolder::class)->getInitialEvent()` back to `X-Initial-Event` header and sets this header for all outcomming guzzle request.
+The package provides a `Ensi\LaravelInitialEventPropagation\PropagateInitialEventLaravelGuzzleMiddleware` Guzzle Middleware that converts ` resolve(InitialEventHolder::class)->getInitialEvent()` back to `X-Initial-Event` header and sets this header for all outcomming guzzle request.  
 
 You can add it to your guzzle stack like this:
 
@@ -73,13 +73,13 @@ public function bootstrap()
     (new SetInitialEventArtisanMiddleware())->handle();
 }
 ```
-This middleware sets artisan command name (including argument, excluding options) as `$initialEventDTO->entrypoint`.
-If your custom artisan command makes guzzle HTTP requests to other apps the `PropagateInitialEventGuzzleMiddleware` uses this initial event.
+This middleware sets artisan command name (including argument, excluding options) as `$initialEventDTO->entrypoint`.  
+If your custom artisan command makes guzzle HTTP requests to other apps the `PropagateInitialEventGuzzleMiddleware` uses this initial event.  
 This middleware also works fine for [Laravel Task Scheduling](https://laravel.com/docs/latest/scheduling).
 
 #### Queue Jobs
 
-You typically want to persist initial event between incoming HTTP request and queued job.
+You typically want to persist initial event between incoming HTTP request and queued job.  
 The package can help you here aswell. Unfortunately you need to touch a given job:
 
 ```php
