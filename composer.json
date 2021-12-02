@@ -37,7 +37,10 @@
     "laravel": {
       "providers": [
         "Ensi\\LaravelInitialEventPropagation\\LaravelInitialEventPropagationServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "InitialEventHolderFacade": "Ensi\\LaravelInitialEventPropagation\\InitialEventHolderFacade"
+      }
     }
   },
   "scripts": {
