@@ -20,7 +20,7 @@ class SetInitialEventHttpMiddleware
 
         if (!$existingEvent || empty($mc['preserve_existing_event'])) {
             $initialEvent = InitialEventDTO::fromScratch(
-                userId: $user ? $user->getId() : "",
+                userId: $user ? $user->getAuthIdentifier() : "",
                 userType: $user ? $mc['default_user_type'] : "",
                 app: !empty($mc['app_code_header']) ? $request->header($mc['app_code_header'], '') : ($config['app_code'] ?? ''),
                 entrypoint: $this->extractEntrypoint($request),
