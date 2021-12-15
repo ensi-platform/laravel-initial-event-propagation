@@ -22,10 +22,10 @@ class SetInitialEventHttpMiddleware
             $initialEvent = InitialEventDTO::fromScratch(
                 userId: $user ? $user->getId() : "",
                 userType: $user ? $mc['default_user_type'] : "",
-                app: !empty($mc['app_code_header']) ? $request->header($mc['app_code_header']) : ($config['app_code'] ?? ''),
+                app: !empty($mc['app_code_header']) ? $request->header($mc['app_code_header'], '') : ($config['app_code'] ?? ''),
                 entrypoint: $this->extractEntrypoint($request),
-                correlationId: !empty($mc['correlation_id_header']) ? $request->header($mc['correlation_id_header']) : '',
-                timestamp: !empty($mc['timestamp_header']) ? $request->header($mc['timestamp_header']) : ''
+                correlationId: !empty($mc['correlation_id_header']) ? $request->header($mc['correlation_id_header'], '') : '',
+                timestamp: !empty($mc['timestamp_header']) ? $request->header($mc['timestamp_header'], '') : ''
             );
 
             $holder->setInitialEvent($initialEvent);
