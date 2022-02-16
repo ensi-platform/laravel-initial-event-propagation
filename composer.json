@@ -11,7 +11,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.0",
-    "illuminate/contracts": "^8.37",
+    "illuminate/contracts": "^8.37 || ^9.0",
     "ensi/initial-event-propagation": "^0.2"
   },
   "autoload": {
