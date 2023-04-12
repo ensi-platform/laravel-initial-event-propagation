@@ -6,6 +6,12 @@ return [
         'default_user_type' => '',
 
         /**
+         * If is set to `false` the middleware does not try to get current user
+         * Defaults to `true`.
+         */
+        'try_auth' => true,
+
+        /**
          * If is set to `true` the middleware does not override the InitialEvent if it was already set for current context earlier.
          * Defaults to `false`.
          */
