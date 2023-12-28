@@ -1,4 +1,4 @@
-# Laravel Initial Evenet Propagation
+# Laravel Initial Event Propagation
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ensi/laravel-initial-event-propagation.svg?style=flat-square)](https://packagist.org/packages/ensi/laravel-initial-event-propagation)
 [![Tests](https://github.com/ensi-platform/laravel-initial-event-propagation/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/ensi-platform/laravel-initial-event-propagation/actions/workflows/run-tests.yml)
