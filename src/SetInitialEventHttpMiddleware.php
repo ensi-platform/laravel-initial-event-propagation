@@ -14,7 +14,7 @@ class SetInitialEventHttpMiddleware
     {
         $config = config('initial-event-propagation', []);
         $mc = config('initial-event-propagation.set_initial_event_http_middleware', []);
-        $holder =  Container::getInstance()->make(InitialEventHolder::class);
+        $holder = Container::getInstance()->make(InitialEventHolder::class);
         $existingEvent = $holder->getInitialEvent();
 
         if (!$existingEvent || empty($mc['preserve_existing_event'])) {
@@ -41,8 +41,9 @@ class SetInitialEventHttpMiddleware
 
     protected function extractEntrypoint(Request $request): string
     {
-        if ($request->route()?->uri) {
-            return "/" . ltrim($request->route()?->uri, "/");
+        $route = $request->route();
+        if ($route?->uri) {
+            return '/' . ltrim($route->uri, '/');
         }
 
         return $request->getRequestUri();

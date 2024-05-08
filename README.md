@@ -17,6 +17,15 @@ Publish config file like this:
 
 `php artisan vendor:publish --provider="Ensi\LaravelInitialEventPropagation\LaravelInitialEventPropagationServiceProvider"`
 
+## Version Compatibility
+
+| Laravel IEP         | Laravel |
+|---------------------|---------|
+| ^0.2.0              | 8.x     |
+| ^0.2.5 \|\| ^0.3.0  | 9.x     |
+| ^0.2.9 \|\| ^0.3.0  | 10.x    |
+| ^0.2.11 \|\| ^0.3.0 | 11.x    |
+
 ## Basic Usage
 
 ```php

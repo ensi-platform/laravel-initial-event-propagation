@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelInitialEventPropagationServiceProvider extends ServiceProvider
 {
-    const CONFIG_FILE_NAME = 'initial-event-propagation.php';
+    public const CONFIG_FILE_NAME = 'initial-event-propagation.php';
 
     /**
      * @return void
