@@ -7,6 +7,7 @@ use Ensi\InitialEventPropagation\InitialEventDTO;
 use Ensi\InitialEventPropagation\InitialEventHolder;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class SetInitialEventHttpMiddleware
 {
@@ -41,6 +42,7 @@ class SetInitialEventHttpMiddleware
 
     protected function extractEntrypoint(Request $request): string
     {
+        /** @var Route|null $route */
         $route = $request->route();
         if ($route?->uri) {
             return '/' . ltrim($route->uri, '/');
