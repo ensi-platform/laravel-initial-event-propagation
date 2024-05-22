@@ -11,11 +11,15 @@ You are free to replace any of them with your own implementations.
 
 You can install the package via composer:
 
-`composer require ensi/laravel-initial-event-propagation`
+```bash
+composer require ensi/laravel-initial-event-propagation
+```
 
 Publish config file like this:
 
-`php artisan vendor:publish --provider="Ensi\LaravelInitialEventPropagation\LaravelInitialEventPropagationServiceProvider"`
+```bash
+php artisan vendor:publish --provider="Ensi\LaravelInitialEventPropagation\LaravelInitialEventPropagationServiceProvider"
+```
 
 ## Version Compatibility
 
