@@ -9,13 +9,6 @@ class LaravelInitialEventPropagationServiceProvider extends ServiceProvider
 {
     public const CONFIG_FILE_NAME = 'initial-event-propagation.php';
 
-    public function boot(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../config/' . self::CONFIG_FILE_NAME => config_path(self::CONFIG_FILE_NAME),
-        ]);
-    }
-
     public function register(): void
     {
         $this->mergeConfigFrom(
@@ -24,5 +17,12 @@ class LaravelInitialEventPropagationServiceProvider extends ServiceProvider
         );
 
         $this->app->scoped(InitialEventHolder::class, fn () => new InitialEventHolder());
+    }
+
+    public function boot(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../config/' . self::CONFIG_FILE_NAME => config_path(self::CONFIG_FILE_NAME),
+        ]);
     }
 }
