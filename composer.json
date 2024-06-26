@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "ensi/initial-event-propagation": "dev-ensitech-74",
+        "ensi/initial-event-propagation": "^0.3.0",
         "laravel/framework": "^9.0 || ^10.0 || ^11.0"
     },
     "require-dev": {
