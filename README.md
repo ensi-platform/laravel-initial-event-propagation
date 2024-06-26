@@ -11,11 +11,27 @@ You are free to replace any of them with your own implementations.
 
 You can install the package via composer:
 
-`composer require ensi/laravel-initial-event-propagation`
+```bash
+composer require ensi/laravel-initial-event-propagation
+```
 
 Publish config file like this:
 
-`php artisan vendor:publish --provider="Ensi\LaravelInitialEventPropagation\LaravelInitialEventPropagationServiceProvider"`
+```bash
+php artisan vendor:publish --provider="Ensi\LaravelInitialEventPropagation\LaravelInitialEventPropagationServiceProvider"
+```
+
+## Version Compatibility
+
+| Laravel IEP | Laravel                              | PHP  |
+|-------------|--------------------------------------|------|
+| ^0.1.0      | ^8.x                                 | ^8.0 |
+| ^0.2.0      | ^8.x                                 | ^8.0 |
+| ^0.2.5      | ^8.x \|\| ^9.x                       | ^8.0 |
+| ^0.2.6      | ^8.x \|\| ^9.x                       | ^8.1 |
+| ^0.2.9      | ^8.x \|\| ^9.x \|\| ^10.x            | ^8.1 |
+| ^0.2.11     | ^8.x \|\| ^9.x \|\| ^10.x \|\| ^11.x | ^8.1 |
+| ^0.3.0      | ^9.x \|\| ^10.x \|\| ^11.x           | ^8.1 |
 
 ## Basic Usage
 
@@ -119,8 +135,7 @@ Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 ### Testing
 
 1. composer install
-2. npm i
-3. composer test
+2. composer test
 
 ## Security Vulnerabilities
 
@@ -129,5 +144,3 @@ Please review [our security policy](.github/SECURITY.md) on how to report securi
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-

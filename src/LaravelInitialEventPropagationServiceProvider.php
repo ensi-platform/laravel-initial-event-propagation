@@ -7,25 +7,19 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelInitialEventPropagationServiceProvider extends ServiceProvider
 {
-    const CONFIG_FILE_NAME = 'initial-event-propagation.php';
+    public const CONFIG_FILE_NAME = 'initial-event-propagation.php';
 
-    /**
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/' . self::CONFIG_FILE_NAME,
             'initial-event-propagation'
         );
 
-        $this->app->singleton(InitialEventHolder::class, fn () => new InitialEventHolder());
+        $this->app->scoped(InitialEventHolder::class, fn () => new InitialEventHolder());
     }
 
-    /**
-     * @return void
-     */
-    public function boot()
+    public function boot(): void
     {
         $this->publishes([
             __DIR__ . '/../config/' . self::CONFIG_FILE_NAME => config_path(self::CONFIG_FILE_NAME),
