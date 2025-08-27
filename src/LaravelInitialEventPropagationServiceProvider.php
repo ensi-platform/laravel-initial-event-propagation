@@ -16,7 +16,11 @@ class LaravelInitialEventPropagationServiceProvider extends ServiceProvider
             'initial-event-propagation'
         );
 
-        $this->app->scoped(InitialEventHolder::class, fn () => new InitialEventHolder());
+        if ($this->app->runningInConsole()) {
+            $this->app->singleton(InitialEventHolder::class, fn() => new InitialEventHolder());
+        } else {
+            $this->app->scoped(InitialEventHolder::class, fn() => new InitialEventHolder());
+        }
     }
 
     public function boot(): void
