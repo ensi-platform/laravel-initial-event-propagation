@@ -32,7 +32,7 @@ php artisan vendor:publish --provider="Ensi\LaravelInitialEventPropagation\Larav
 | ^0.2.9      | ^8.x \|\| ^9.x \|\| ^10.x                        | ^8.1 |
 | ^0.2.11     | ^8.x \|\| ^9.x \|\| ^10.x \|\| ^11.x             | ^8.1 |
 | ^0.3.0      | ^9.x \|\| ^10.x \|\| ^11.x                       | ^8.1 |
-| ^0.3.5      | ^9.x \|\| ^10.x \|\| ^11.x \|\| ^12.x \|\| ^13.x | ^8.1 |
+| ^0.3.5      | ^12.x \|\| ^13.x                                 | ^8.2 |
 
 ## Basic Usage
 
